@@ -1,0 +1,30 @@
+﻿@model WebApplication2_DepDsgEmp_1147.Models.Employee
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-primary text-context">Employee Details</h2>
+
+<table class="table table-boared table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>designation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Address</td>
+            <td>@Model.Salary</td>
+            <td>@Model.Department.Name</td>
+            <td>@Model.Designation.Name</td>
+        </tr>
+    </tbody>
+</table>
+@Html.ActionLink("Edit","upsert",new {id=Model.Id})<br/>
+@Html.ActionLink("BackToList","Index")
+

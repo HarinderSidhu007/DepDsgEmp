@@ -1,0 +1,75 @@
+﻿@model WebApplication2_DepDsgEmp_1147.Models.Employee
+@using WebApplication2_DepDsgEmp_1147.Models
+@{
+    ViewBag.Title = "upsert";
+    var title = Model.Id != 0 ? "Edit Employee" : "New Employee";
+    var Saveupdate = Model.Id != 0 ? "Update" : "Save";
+    //var departments = ViewBag.depList as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+    //var designations = ViewBag.dsgList as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+    var departments = ViewBag.depList as SelectList ?? new SelectList(new List<SelectListItem>());
+    var designations = ViewBag.dsgList as SelectList ?? new SelectList(new List<SelectListItem>());
+}
+
+<h2 class="text-primary text-center">@title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    if (Model.Id != 0)
+    {
+        @Html.HiddenFor(m => m.Id)
+    }
+
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address)
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Salary)
+            @Html.TextBoxFor(m => m.Salary,  new { @class = "form-control" })
+            @Html.ValidationMessageFor(m =>m.Salary, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+                @Html.LabelFor(m => m.DepartmentId)
+                @Html.DropDownListFor(
+                    m => m.DepartmentId,
+                    departments,
+                    "Select Department",
+                    new { @class = "form-control" }
+                )
+                @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+
+        <div class="form-group">
+                @Html.LabelFor(m => m.DesignationId)
+                @Html.DropDownListFor(
+                    m => m.DesignationId,
+                    designations,
+                    "Select Designation",
+                    new { @class = "form-control" }
+                )
+                @Html.ValidationMessageFor(m => m.DesignationId, "", new { @class = "text-danger" })
+            </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-info">
+                @Saveupdate
+            </button>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+}

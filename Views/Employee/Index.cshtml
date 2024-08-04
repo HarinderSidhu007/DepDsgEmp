@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication2_DepDsgEmp_1147.Models.Employee>
+
+<h2 class="text-primary text-center">Employees List</h2>
+
+@Html.ActionLink("New Employee ", "Upsert", "Employee", new { @class = "btn btn-info" })
+
+@if (!Model.Any())
+{
+    <h2 class="text-danger">No Data Found</h2>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                using (Html.BeginForm("Delete", "Employee", new { id = employee.Id }))
+                {
+            <tr>
+                <td>@employee.Name</td>
+                <td>@employee.Address</td>
+                <td>@employee.Salary</td>
+                <td>@employee.Department.Name</td>
+                <td>@employee.Designation.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "upsert", new { id = employee.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Details", "Details", new { id = employee.Id }, new {@class="btn btn-success"})
+                    <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('want to delete data?')" />
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
